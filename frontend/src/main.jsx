@@ -1,10 +1,10 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import Home from "./pages/Home.jsx";
 import Favorites from "./pages/Favorites.jsx";
 import "./css/index.css";
+import { movieProvider as MovieProvider } from "./contexts/movieContext.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -21,6 +21,8 @@ const appRouter = createBrowserRouter([
   },
 ]);
 
-const root = createRoot(document.getElementById("root")).render(
-  <RouterProvider router={appRouter} />,
+createRoot(document.getElementById("root")).render(
+  <MovieProvider>
+    <RouterProvider router={appRouter} />
+  </MovieProvider>,
 );

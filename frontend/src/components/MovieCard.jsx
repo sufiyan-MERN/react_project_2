@@ -1,8 +1,14 @@
 import "../css/MovieCard.css";
+import { useMovieContext } from "../contexts/movieContext";
 
 function MovieCard({ movie }) {
-  function onFavoriteClick() {
-    alert("clicked");
+  const { addToFavorites, removeFromFavorites, isFavorites } =
+    useMovieContext();
+  const favorite = isFavorites(movie.id);
+
+  function onFavoriteClick(e) {
+    if (favorite) removeFromFavorites(movie.id);
+    else addToFavorites(movie);
   }
 
   const posterUrl = movie.poster_path
@@ -14,7 +20,10 @@ function MovieCard({ movie }) {
       <div className="movie-poster">
         <img src={posterUrl} alt={movie.title || "Movie poster"} />
         <div className="movie-overlay">
-          <button className="favorite-btn" onClick={onFavoriteClick}>
+          <button
+            className={`favorite-btn ${favorite ? "active" : ""}`}
+            onClick={onFavoriteClick}
+          >
             🤍
           </button>
         </div>
